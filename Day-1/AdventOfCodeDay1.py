@@ -8,17 +8,22 @@ Created on Sat Dec 16 22:53:17 2023
 
 import re
 
+#%% Required functions
+
+def extractFirstLast(line):
+    numbers = ''.join(re.findall(r'\d+', line))
+    firstLast = int(numbers[0]+numbers[len(numbers)-1])
+    return firstLast
+
 #%% Read in File
 
-cali = open('CalibrationDocument.txt' , 'r') # Read the file in
+cali = open('Day-1/CalibrationDocument.txt' , 'r') # Read the file in
 
 #%% Part 1
 
 code = 0 # Create the counter for the final answer
 for line in cali: # Loop through the file line by line
-    num = ''.join(re.findall(r'\d+', line)) # Find the number and collate into single string
-    finalNumber = int(num[0]+num[len(num)-1]) # Keep only the first and last number
-    code += finalNumber # Add this to the running total
+    code += extractFirstLast(line) # Add this to the running total
 
 print('Code to part 1 is ' + str(code))
 
@@ -35,9 +40,9 @@ for line2 in cali: # Loop through the file line by line
     characters = []
     positions = []
     for word in digits:
-        for m in re.finditer(word, line2):
-            if m.start() != -1:
-                positions.append(m.start())
+        for single in re.finditer(word, line2):
+            if single.start() != -1:
+                positions.append(single.start())
                 characters.append(word)
     orderChar = [characters for (positions, characters) in sorted(zip(positions, characters))]
     print(orderChar)
