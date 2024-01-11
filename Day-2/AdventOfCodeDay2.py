@@ -11,7 +11,7 @@ import numpy as np
 
 #%% Read in File
 
-text = open('Cubes.txt' , 'r') # Read the file in
+text = open('Day-2/Cubes.txt' , 'r') # Read the file in
 
 #%% Part 1
 total = 0
